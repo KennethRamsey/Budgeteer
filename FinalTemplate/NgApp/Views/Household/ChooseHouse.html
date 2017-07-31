@@ -1,0 +1,37 @@
+﻿<div ng-controller="chooseHouseCtrl">
+    <h1>{{registering ? "2. " : ""}}Choose your House</h1>
+    <hr />
+    <!-- house your in -->
+    <h3 style="display: inline-block;">You are currently {{(user.householdId == null)? "in need of a home.": "in a home!"}}</h3>
+    <!-- leave house your in -->
+    <!-- discolsure over accounts and not rejoining unless invited -->
+    <h4 class="text-muted" ng-show="user.householdId != null" style="display: inline-block; margin-left: 10px;">
+        (If you leave a home you will lose access to all of it's accounts and budget information.)
+    </h4>
+
+    <!-- waiting inviatations -->
+    <p ng-show="!invites">Your inbox is empty, talk to your friends if you want to join their house.</p>
+    <div ng-repeat="i in invites" class="panel-body" style="border: 1px solid #dddddd; background: #f5f5f5; margin: 10px;">
+        <p>
+            You have been invited by <b>{{i.fromUserName}}</b> to join their household! <button class="btn btn-success" ng-click="acceptInvite(i.id)">Accept</button>
+            <button class="btn btn-danger" ng-click="declineInvite(i.id)">Decline</button>
+        </p>
+    </div>
+
+    <div ng-show="registering">
+        <p>
+            To be a budgetter, you need to chose a home. This is the Choose a home page under your profile tab. From here you can join someone else's household if they send you an invite.
+            <br />Any invites will be waiting for you on this page.
+            <br />
+            <br />You can also start your own so your family can budget with you. After this you can go manage your home and invite people to join your household.
+            <br />
+            <br /><span class="text-muted">Note: all transactions and accounts are tied to a household so if you ever leave you will lose access to those things.</span>
+        </p>
+    </div>
+
+
+    <!-- make your own house -->
+    <div class="text-center" style="margin-top: 30px;">
+        <button class="btn btn-info btn-lg" ng-click="startHouse()">Start your own household »</button>
+    </div>
+</div>

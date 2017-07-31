@@ -1,0 +1,92 @@
+﻿<div ng-controller="budgetCtrl">
+    <h1>{{registering ? "4. Time to Budget." : "Edit your Budget"}}</h1>
+
+    <p ng-show="registering" style="font-size:medium; margin-bottom: 30px;">
+        <br />Enter your income categories and expense categories with their budgeted amount. Any transactions you put in these categories will affect your budget, but a transaction isn't required to have a category.
+    </p>
+
+    <div class="well" style="overflow: auto;">
+        <form ng-submit="updateBudget()">
+
+            <div class="form-group col-sm-3">
+                <label for="budgetCategory">Budget Category</label>
+                <input id="budgetCategory" class="form-control" ng-model="budgetItem.name" type="text" required>
+            </div>
+
+            <div class="form-group col-sm-3">
+                <label for="amount">Amount</label>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input id="amount" class="form-control" ng-model="budgetItem.amount" type="number" min="0.01" step="0.01" required>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-3">
+                <label for="catType">Category Type</label>
+                <select id="catType" class="form-control" ng-model="budgetItem.isExpense" required>
+                    <option value="true">Expense</option>
+                    <option value="false">Income</option>
+                </select>
+            </div>
+
+            <!-- buttons -->
+            <div class="form-group col-sm-3" style="margin-top:24px;">
+                <input type="submit" class="btn btn-success" value="update budget" />
+                <button type="button" class="btn btn-default" ng-click="clear()">Cancel</button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- table of budget -->
+    <table class="table table-condensed">
+        <caption><h3>Incomes</h3></caption>
+        <thead>
+            <tr>
+                <th>Budget Category</th>
+                <th>Budgeted Amount</th>
+                <th>Amount For this month</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="i in incomes">
+                <td>{{i.name}}</td>
+                <td>{{i.amount | currency}}</td>
+                <td>{{i.sum | currency}}</td>
+                <td>
+                    <button class="btn " ng-class="{'btn-default': !editting(i.id), 'btn-primary':editting(i.id)}" ng-click="edit(i)">Edit</button>
+                    <button class="btn btn-danger" ng-click="delete(i)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-condensed">
+        <caption><h3>Expense</h3></caption>
+        <thead>
+            <tr>
+                <th>Budget Category</th>
+                <th>Budgeted Amount</th>
+                <th>Amount For this month</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="e in expenses">
+                <td>{{e.name}}</td>
+                <td>{{e.amount | currency}}</td>
+                <td ng-class="{'text-danger': e.sum > e.amount}">{{e.sum | currency}}</td>
+                <td>
+                    <button class="btn" ng-class="{'btn-default': !editting(e.id), 'btn-primary':editting(e.id)}" ng-click="edit(e)" href="#amount">Edit</button>
+                    <button class="btn btn-danger" ng-click="delete(e)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div ng-show="registering">
+        <h3 style="margin-top: 30px;">Your Done!</h3>
+        <p class="alert alert-success" style="font-size:medium;">Once you are finished with this your budget, your done! Go see your budget now on your <a ui-sref="dashboard" style="color: white; font-weight: bold;">dashboard</a> and start budgetting.</p>
+    </div>
+</div>

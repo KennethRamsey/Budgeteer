@@ -1,0 +1,67 @@
+﻿<!--<div ng-controller="dashCtrl">-->
+<div ng-controller="homeCtrl">
+
+    <div class="col-md-5">
+        <div>
+            <div class="panel panel-default">
+
+                <div class="panel-heading" style="overflow:auto;">
+                     <h3 style="float:left;">Accounts</h3>
+                     <a ui-sref="householdAccounts" class="btn btn-xs btn-default glyphicon glyphicon-arrow-right" style="float:right;"></a>
+                </div>
+
+                <div class="panel-body">
+                    <table class="table clean">
+                        <tbody>
+                            <tr ng-repeat="a in accounts">
+                                <td>{{a.name}}</td>
+                                <td ng-class="{'text-danger': a.balance<0}">{{a.balance | currency}}</td>
+                                <td><a class="btn btn-warning" ui-sref="householdAccounts">Details</a></td>
+                                <!-- for now have the details button go to the accounts page. -->
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading" style="overflow:auto;">
+                    <h3 style="float:left;">Recent Transaction</h3>
+                    <a ui-sref="transactions" class="btn btn-xs btn-default glyphicon glyphicon-arrow-right" style="float:right;"></a>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Expense</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="t in recentTrans">
+                                <td>{{t.date | date}}</td>
+                                <td>{{t.userName}}</td>
+                                <td>{{t.amount | currency}}</td>
+                                <td>{{t.budgetName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-md-7">
+        <h1>Your Household Budget</h1>
+        <div>
+            <graph></graph>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,22 @@
+﻿
+<form ng-submit="login()" ng-hide="auth.isAuth">
+
+    <!--<label for="username" class="control-label">User Name</label>-->
+    <input type="text" name="username" class="form-control" ng-model="loginData.userName" placeholder="Username or email" required />
+
+    <!--<label for="password" class="control-label">Password</label>-->
+    <input type="password" class="form-control" name="password" ng-model="loginData.password" placeholder=" password" required />
+    <br />
+    <input type="submit" class="btn btn-default btn-group-justified" value="Sign in" />
+
+    <p class="text-danger">{{loginData.err}}</p>
+</form>
+
+<!-- spinner while waiting to login -->
+<spinner ng-show="spin"></spinner>
+
+
+<!-- show loggout if your logged in. -->
+<div ng-show="auth.isAuth" class="panel panel-body">
+    Your logged in!!!
+</div>

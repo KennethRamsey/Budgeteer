@@ -1,0 +1,59 @@
+﻿
+<div ng-controller="personalCtrl">
+    <h1>{{user  .userName}}'s Profile <button ng-class="{'btn': true, 'btn-default': !editable, 'btn-warning': editable}" ng-click="edit()">Edit Profile</button></h1>
+
+
+
+    <form name="userForm" ng-submit="updateUser()">
+
+        <!-- user info fields -->
+        <label for="name" class="control-label">Name</label>
+        <input type="text" name="name" class="form-control" ng-model="user.name" readonly required />
+
+        <label for="username" class="control-label">User Name</label>
+        <input type="text" name="username" class="form-control" ng-model="user.userName" readonly required />
+
+
+        <!-- editable fields -->
+        <label for="email" class="control-label">Email</label>
+        <input type="email" name="email" class="form-control" ng-model="user.email" ng-disabled="!editable" required />
+
+        <label for="PhoneNumber" class="control-label">Phone Number</label>
+        <input type="text" name="PhoneNumber" class="form-control" ng-model="user.phoneNumber" pattern="^((?=(.*?\d))\2){7,}" ng-disabled="!editable" required />
+
+        <br />
+
+        <!-- change password fields -->
+        <label for="newPassword" class="control-label">New Password (at least 6 characters)</label>
+        <input type="password" class="form-control" name="password" ng-model="user.newPassword" ng-disabled="!editable" pattern=".{6,}" />
+
+        <label for="confirmPassword" class="control-label">Confirm New Password</label>
+        <input type="password" class="form-control" name="confirmPassword" ng-model="user.confirmNewPassword" ng-disabled="!editable" pattern=".{6,}" />
+
+        <p class="text-danger" ng-show="editable && user.newPassword != user.confirmNewPassword">New password and confirm new password do not match.</p>
+
+        <br />
+
+        <!-- password to update user -->
+        <label for="Password" class="control-label">Enter your passord to save updates.</label>
+        <input type="password" class="form-control" name="password" ng-model="user.password" ng-disabled="!editable" required />
+
+        <br />
+
+        <!-- look into angular form validation in free time!!! -->
+        <!--{{userForm}}-->
+        <input type="submit" ng-class="{'btn-primary': editable, 'btn-default': !editable}" class="btn btn-group-justified" value="Save Updates" />
+
+    </form>
+
+
+    <!-- NOTES: NEED ERROR HANDLING
+        for classes like email already taken,
+        didn't save correctly,
+        bad password,
+
+        and need to report success better.
+
+        -->
+
+</div>

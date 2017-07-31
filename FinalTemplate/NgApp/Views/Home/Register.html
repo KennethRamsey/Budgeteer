@@ -1,0 +1,45 @@
+﻿
+
+<h2>Step 1 - Enlistment.</h2>
+<hr />
+
+<div class="row" ng-controller="regCtrl">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-6">
+
+        <form ng-submit="register()">
+
+            <label for="name" class="control-label">Name</label>
+            <input type="text" name="name" class="form-control" ng-model="user.name" required />
+
+            <label for="email" class="control-label">Email</label>
+            <input type="email" name="email" class="form-control" ng-model="user.email" required />
+
+            <label for="PhoneNumber" class="control-label">Phone Number</label>
+            <input type="text" name="PhoneNumber" class="form-control" ng-model="user.phoneNumber" pattern="^((?=(.*?\d))\2){7,}" required />
+
+            <label for="username" class="control-label">User Name</label>
+            <input type="text" name="username" class="form-control" ng-model="user.userName" required />
+
+            <label for="password" class="control-label">Password</label>
+            <input type="password" class="form-control" name="password" ng-model="user.password" required />
+
+            <label for="confirmPassword" class="control-label">Confirm Password</label>
+            <input type="password" class="form-control" name="confirmPassword" ng-model="user.confirmPassword" required />
+
+            <br />
+            <input type="submit" class="btn btn-primary btn-group-justified" value="Register" />
+
+        </form>
+
+    </div>
+
+    <div class="col-md-4">
+        <!-- show twerly when waiting -->
+        <img src="" alt="" ng-show="waiting" />
+
+        <!-- show all register errors -->
+        <p class="alert alert-danger" ng-show="user.err" ng-repeat="err in user.err">{{err}}</p>
+    </div>
+</div>

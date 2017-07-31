@@ -181,3 +181,7 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+
+# remove local angulars
+FinalTemplate/NgApp/Core/i18n

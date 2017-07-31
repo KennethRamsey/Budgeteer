@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F1A126D2-645D-452A-9D4A-4DCE3F9E60BB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DatabaseBuilder</RootNamespace>
+    <AssemblyName>DatabaseBuilder</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Insight.Database">
+      <HintPath>..\packages\Insight.Database.Core.5.1.0\lib\NET45\Insight.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Insight.Database.Configuration">
+      <HintPath>..\packages\Insight.Database.5.1.0\lib\NET45\Insight.Database.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Insight.Database.Providers.Default">
+      <HintPath>..\packages\Insight.Database.5.1.0\lib\NET45\Insight.Database.Providers.Default.dll</HintPath>
+    </Reference>
+    <Reference Include="Insight.Database.Schema">
+      <HintPath>..\packages\Insight.Database.Schema.2.2.8\lib\NET45\Insight.Database.Schema.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\dbo\Accounts.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\Schemas.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\dbo\Transactions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\dbo\BudgetItems.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\dbo\Invitations.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sql\Tables\dbo\Categories.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\security\Users.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\security\UserRoles.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\security\UserLogins.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\security\UserClaims.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\security\Roles.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\security\stored Procs\GetRolesForUser.sql" />
+    <EmbeddedResource Include="Sql\Tables\security\stored Procs\RemoveUserFromRole.sql" />
+    <EmbeddedResource Include="Sql\Tables\security\stored Procs\GetLoginsForUser.sql" />
+    <EmbeddedResource Include="Sql\Tables\security\stored Procs\FindUserByLogin.sql" />
+    <EmbeddedResource Include="Sql\Tables\security\stored Procs\GetUserClaims.sql" />
+    <EmbeddedResource Include="Sql\Tables\security\stored Procs\FindUserByEmail.sql" />
+    <EmbeddedResource Include="Sql\Tables\security\stored Procs\RemoveUserClaim.sql" />
+    <EmbeddedResource Include="Sql\Tables\security\stored Procs\AddUserToRole.sql" />
+    <EmbeddedResource Include="Sql\Tables\security\stored Procs\FindUserByUserName.sql" />
+    <EmbeddedResource Include="Sql\Tables\security\stored Procs\IsUserInRole.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sql\Tables\dbo\stored Procs\GetAccountsByHousehold.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\dbo\stored Procs\GetTransactions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\dbo\Households.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\dbo\stored Procs\GetRecentTransactions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\Tables\dbo\stored Procs\GetMonthSums.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sql\Tables\dbo\stored Procs\GetInvitations.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,67 @@
+﻿
+<form id="trans-form" ng-submit="onSubmit()">
+    <fieldset>
+        <legend>
+            Enter/Edit Transaction
+        </legend>
+        <!-- amount -->
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input id="amount" class="form-control" ng-model="transaction.amount" type="number" min="0.01" step="0.01" required>
+            </div>
+        </div>
+
+        
+        <!-- reconciled -->
+        <div class="checkbox">
+            <!-- Deposit or Purchase -->
+            <button type="button" ng-class="{'btn': true, 'btn-sm':true, 'btn-success':transaction.isDeposit, 'btn-warning':!transaction.isDeposit}" ng-click="toggleIsDeposit()">
+                {{(transaction.isDeposit) ? "Deposit":"Purchase"}}
+            </button>
+            <label class="btn btn-default btn-sm" style="padding-left: 30px; float: right;">
+                <input type="checkbox" ng-model="transaction.reconciled" style="margin-top: 3px;"> Reconciled
+            </label>
+        </div>
+        <div class="checkbox">
+
+        </div>
+
+        <!-- account -->
+        <div class="form-group">
+            <label for="account">Account</label>
+            <select id="account" class="form-control" ng-model="transaction.accountId" ng-options="a.id as a.name for a in accounts" required>
+                <option></option>
+            </select>
+        </div>
+
+        <!-- description -->
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" class="form-control" ng-model="transaction.description">{{transaction.description}}</textarea>
+        </div>
+
+        <!-- budget category -->
+        <div class="form-group">
+            <label for="budgetCategory">Category</label>
+            <select id="budgetCategory" class="form-control" ng-model="transaction.budgetItemId" value="{{transaction.BudgetItemId}}">
+                <option></option>
+                <optgroup label="Income">
+                    <option ng-repeat="i in incomeCat" value="{{i.id}}">{{i.name}}</option>
+                </optgroup>
+                <optgroup label="Expense">
+                    <option ng-repeat="e in expenseCat" value="{{e.id}}">{{e.name}}</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <!-- date -->
+        <div class="form-group">
+            <label for="date">Date of Transaction</label>
+            <input id="date" class="form-control" type="date" ng-model="transaction.date" required>
+        </div>
+
+    </fieldset>
+
+</form>

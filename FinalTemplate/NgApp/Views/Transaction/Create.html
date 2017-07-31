@@ -1,0 +1,136 @@
+﻿<div ng-controller="transactionCtrl">
+    <h1 class="text-center">
+        <div class="btn-group btn-group-sm" style="float: left;">
+            <button ng-class="{'btn':true, 'btn-default':!enter, 'btn-primary':enter}" ng-click="enterPage()">Enter transactions</button>
+            <button ng-class="{'btn':true, 'btn-default':enter, 'btn-primary':!enter}" ng-click="searchPage()">Search</button>
+        </div>
+        Transactions
+    </h1>
+
+    <div class="text-center well" ng-show="!enter" style="overflow: auto;">
+        <!--<span>Search Transactions</span>-->
+        <form ng-submit="filter()">
+            <div >
+                <!-- date -->
+                <div class="col-sm-3">
+                    <label for="">Date</label>
+                    <input type="date" class="form-control" ng-model="options.date" />
+                </div>
+
+                <!-- is Deposit -->
+                <div class="col-sm-3">
+                    <label for="">Type</label>
+                    <select id="" class="form-control" ng-model="options.isDeposit">
+                        <option></option>
+                        <option value="true">Deposit</option>
+                        <option value="false">Purchase</option>
+                    </select>
+                </div>
+
+                <!-- Amount -->
+                <div class="col-sm-3">
+                    <label for="searchAmount">Amount</label>
+                    <input id="searchAmount" class="form-control" ng-model="options.amount" type="number" min="0.01" step="0.01">
+                </div>
+
+                <!-- budget Category -->
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="budgetCategory">Category</label>
+                        <select id="budgetCategory" class="form-control" ng-model="options.budgetItemId">
+                            <option></option>
+                            <optgroup label="Income">
+                                <option ng-repeat="i in incomeCat" value="{{i.id}}">{{i.name}}</option>
+                            </optgroup>
+                            <optgroup label="Expense">
+                                <option ng-repeat="e in expenseCat" value="{{e.id}}">{{e.name}}</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- User -->
+            <div class="col-sm-4">
+                <label for="">User {{options.userName}}</label>
+                <select id="" class="form-control" ng-model="options.userName" ng-options="m.userName as m.userName for m in members">
+                    <option></option>
+                </select>
+            </div>
+
+            <!-- Accounts -->
+            <div class="col-sm-4">
+                <label for="">Account</label>
+                <select id="" class="form-control" ng-model="options.accountId" ng-options="a.id as a.name for a in accounts">
+                    <option></option>
+                </select>
+            </div>
+
+            <!-- reconciled -->
+            <div class="col-sm-4">
+                <label for="">Reconciled</label>
+                <select id="" class="form-control" ng-model="options.reconciled">
+                    <option></option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+
+
+        </form>
+    </div>
+
+    <div class="col-md-3 well" ng-show="enter">
+        <!-- transaction entry form -->
+        <fa-transaction on-submit="onSubmit"
+                        transaction="transaction"
+                        income-cat="incomeCat"
+                        expense-cat="expenseCat"
+                        accounts="accounts"></fa-transaction>
+
+        <!-- other controls -->
+        <div class="btn-group btn-group-sm btn-group-vertical btn-block">
+            <button class="btn btn-info" type="submit" form="trans-form">Submit Transaction</button>
+            <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <div ng-class="{'col-md-9': enter , 'col-md-12': !enter}">
+
+        <!-- waiting spinner -->
+        <spinner ng-show="spin"></spinner>
+
+        <!-- table of Transactions -->
+        <table id="account-table" class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="well" ng-click="sort('date')">Date{{options.sort == 'date' ? (options.order == 'asc' ? " ▲" : " ▼"):""}}</th>
+                    <th class="well" ng-click="sort('isDeposit')">Type{{options.sort == 'isDeposit' ? (options.order == 'asc' ? " ▲" : " ▼"):""}}</th>
+                    <th class="well" ng-click="sort('amount')">Amount{{options.sort == 'amount' ? (options.order == 'asc' ? " ▲" : " ▼"):""}}</th>
+                    <th class="well" ng-click="sort('budget')">Category{{options.sort == 'budget' ? (options.order == 'asc' ? " ▲" : " ▼"):""}}</th>
+                    <th class="well" ng-click="sort('userName')">User{{options.sort == 'userName' ? (options.order == 'asc' ? " ▲" : " ▼"):""}}</th>
+                    <th>Description</th>
+                    <th class="well" ng-click="sort('account')">Account{{options.sort == 'account' ? (options.order == 'asc' ? " ▲" : " ▼"):""}}</th>
+                    <th class="well" ng-click="sort('reconciled')">Reconciled{{options.sort == 'reconciled' ? (options.order == 'asc' ? " ▲" : " ▼"):""}}</th>
+                    <th ng-hide="!enter"><!-- buttons --></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="t in transactionList">
+                    <td>{{t.date | date}}</td>
+                    <td ng-class="{'text-success': t.isDeposit, 'text-warning': !t.isDeposit}">{{(t.isDeposit) ? "Deposit":"Purchase"}}</td>
+                    <td>{{t.amount | currency}}</td>
+                    <td>{{t.budgetName}}</td>
+                    <td>{{t.userName}}</td>
+                    <td>{{t.description}}</td>
+                    <td>{{t.accountName}}</td>
+                    <td><input type="checkbox" ng-model="t.reconciled" disabled /></td>
+                    <td ng-hide="!enter">
+                        <button class="btn" ng-class="{'btn-default': t.id == transaction.id, 'btn-warning': t.id == transaction.id}" ng-click="edit(t)">Edit</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

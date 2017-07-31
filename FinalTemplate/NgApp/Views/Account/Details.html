@@ -1,0 +1,38 @@
+﻿<div ng-controller="accountCtrl">
+    <h1 class="text-center">{{registering ? "3. Create Your Accounts." : "Household Accounts"}}</h1>
+
+    <p ng-show="registering" style="font-size: medium;  margin-bottom: 30px;">
+        <br />You've joined a household. Great! Now lets set up the bank accounts that will be accessable to this household. Once registration is done, go into the transactions page and make an initial deposit for these new accounts.
+    </p>
+
+    <form id="account-form" class="form-inline" ng-submit="addAccount()">
+        <input type="text" class="form-control" name="name" ng-model="account.name" placeholder="Account name" />
+        <input type="submit" class="btn btn-primary" value="Add Account" />
+    </form>
+
+    <!-- table of accounts -->
+    <table id="account-table" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Account</th>
+                <th>Balance</th>
+                <th>Reconciled Balance</th>
+                <th><!-- buttons --></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="a in accounts">
+                <td>{{a.name}}</td>
+                <td ng-class="{'text-danger': a.balance < 0}">{{a.balance | currency}}</td>
+                <td ng-class="{'text-danger': a.reconciledBalance < 0}">{{a.reconciledBalance | currency}}</td>
+                <td class="text-right">
+                    <!--<a class="btn btn-default" ui-sref="transactions">View Transactions</a>-->
+                    <a class="btn btn-danger" ng-click="deleteAccount(a.id)">Delete Account</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+    <a class="btn btn-primary btn-group-justified text-center" ng-show="registering" ui-sref="householdBudget">Continue to step 4.</a>
+</div>

@@ -1,0 +1,41 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+
+.container .jumbotron, .container-fluid .jumbotron {
+    overflow: auto;
+}
+
+
+.panel-heading h3, .panel-heading h1 {
+    margin: 0;
+}
+
+
+.table>thead>tr>th,
+.table>tbody>tr>td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+.table.clean {
+    margin: 0;
+}
+
+.clean > tbody > tr:first-of-type > td {
+    border-top: 0;
+}
+
+
+
+#account-form {
+    margin: 20px 0 30px 0;
+}
+#account-table {
+    font-size: 1em;
+}
